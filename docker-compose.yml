@@ -1,0 +1,46 @@
+mysite:
+  restart: always
+  build: ./mysite
+  expose:
+    - "8000"
+  links:
+    - postgres:postgres
+    - redis:redis
+  volumes:
+    - ./mysite:/usr/src/app
+    - ./mysite/static:/usr/src/app/static
+  env_file: .env
+  command: /usr/local/bin/gunicorn mysite.wsgi:application -w 2 -b :8000 --reload
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - mysite
+  links:
+    - mysite:mysite
+
+postgres:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
+
+redis:
+  restart: always
+  image: redis:latest
+  ports:
+    - "6379:6379"
+
+data:
+  restart: always
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"

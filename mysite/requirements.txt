@@ -1,6 +1,9 @@
-Django==1.8.1
+Django==1.9.5
 gunicorn==19.3.0
 psycopg2==2.6
 redis==2.10.3
 celery
 watchdog
+ephem
+numpy
+datetime

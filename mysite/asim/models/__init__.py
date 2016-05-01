@@ -1,6 +1,5 @@
 from asim.models.BackgroundObservation import *
 from asim.models.ISSpredict import *
-from asim.models.MMIAHousekeeping import *
 from asim.models.MXGSAuroralCaptureObservation import *
 from asim.models.MXGSBGODAU1FullHousekeepingTM import *
 from asim.models.MXGSBGODAU2FullHousekeepingTM import *
